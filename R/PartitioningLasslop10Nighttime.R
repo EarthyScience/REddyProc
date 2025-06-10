@@ -416,6 +416,13 @@ partGLSmoothTempSens <- function(
       warning(
         "No respiration-temperature relationship for any period of the ",yr,"th year. "
         , "Using mean temperature sensitivity of other years for this year.")
+    } else if (sd(E0WinFinite$E0)/mean(E0WinFinite$E0) < 0.01) {
+      # little variability in E0 estimates, no need to smooth
+      # takes care of error with mlegp if all E0 are the same (Kai 25)
+      # if only few records are available the uncertainty for the gaps is
+      #   underestimated
+      E0WinYr$E0 = mean(E0WinFinite$E0)
+      E0WinYr$sdE0 = max(E0WinFinite$sdE0)
     } else {
       if (!requireNamespace("mlegp")) stop(
         "package mlegp is required for Lasslop daytime partitioning.",
