@@ -9,7 +9,7 @@ fLoadAmeriflux22(file_path, ...)
 \arguments{
 \item{file_path}{scalar string: the path to the csv file}
 
-\item{...}{further arguments to \code{\link{read_csv}}}
+\item{...}{further arguments to \code{\link[readr]{read_csv}}}
 }
 \description{
 Reads Variables from file into data.frame from file and passes

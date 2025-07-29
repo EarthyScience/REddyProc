@@ -1,5 +1,4 @@
-bigleaf package replacing GeoFunctions of REddyProc
-===================================================
+# bigleaf package replacing GeoFunctions of REddyProc
 
 `REddyProc` package included several utility functions that were
 somewhat out of the package scope. These functions are removed from
@@ -12,12 +11,11 @@ package.
       "bigleaf package must be installed to create this vignette.")
     library(REddyProc)
 
-Vapour pressure deficit (VPD)
------------------------------
+## Vapour pressure deficit (VPD)
 
 **Vapour pressure deficit (VPD)** was computed with REddyProc in
 *h**P**a* from relative humidity in % and air temperature in
-**<sup>∘</sup>*C*.
+<sup>∘</sup>*C*.
 
     VPD0 <- fCalcVPDfromRHandTair(DEGebExample$rH, DEGebExample$Tair)
 
@@ -70,8 +68,7 @@ relative humidity as fraction.
 
     ## [1]  0.0000 15.8225 31.6450 47.4675 63.2900 79.1125 94.9350
 
-Evapotranspiration from latent heat and air temperature
--------------------------------------------------------
+## Evapotranspiration from latent heat and air temperature
 
     LE <- seq(300,500,by = 50)
     Tair <- 25
@@ -87,8 +84,7 @@ former `fCalcETfromLE`.
 
     ## [1]  6.819916  7.956569  9.093222 10.229874 11.366527
 
-Converting visible radiation from irradiance to photons flux
-------------------------------------------------------------
+## Converting visible radiation from irradiance to photons flux
 
 Photon flux density (PPFD) of visible light can be computed from energy
 in incoming radiation
@@ -104,7 +100,7 @@ functions `fConvertVisibleWm2toPhotons` and `fConvertGlobalToVisible`.
 
     ## [1] 460
 
-The PPFD of light including non-visible parts, i.e. former
+The PPFD of light including non-visible parts, i.e. former
 `fConvertVisibleWm2toPhotons`, is obtained by setting argument
 `frac_PAR` to 1.
 
@@ -112,8 +108,7 @@ The PPFD of light including non-visible parts, i.e. former
 
     ## [1] 920
 
-Potential and Extraterrestrial solar radiation
-----------------------------------------------
+## Potential and Extraterrestrial solar radiation
 
 Potential radiation (*W**m*<sup>−2</sup>) depends on time and
 geo-location.
