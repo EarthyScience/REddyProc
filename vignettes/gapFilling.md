@@ -1,5 +1,4 @@
-Extended usage of the gap filling algorithm
-===========================================
+# Extended usage of the gap filling algorithm
 
     #+++ load libraries used in this vignette
     library(REddyProc)
@@ -38,8 +37,7 @@ Extended usage of the gap filling algorithm
 
 ![](gapFilling_files/figure-markdown_strict/ex2b-1.png)
 
-Explicit demonstration of MDS algorithm for NEE gap filling
-===========================================================
+# Explicit demonstration of MDS algorithm for NEE gap filling
 
     EProcMDS <- sEddyProc$new(
       'DE-Tha', EddyDataWithPosix, c('NEE', 'Rg', 'Tair', 'VPD'))
@@ -73,17 +71,17 @@ Explicit demonstration of MDS algorithm for NEE gap filling
     FilledEddyData <- EProcMDS$sExportResults()
     head(FilledEddyData)
 
-    ##   VAR_orig     VAR_f VAR_fqc VAR_fall VAR_fall_qc VAR_fnum  VAR_fsd
-    ## 1    -1.21 -1.210000       0 1.373704           1       54 2.531604
-    ## 2     1.72  1.720000       0 1.396364           1       55 2.513678
-    ## 3       NA  1.006569       1 1.006569           1       58 3.311918
-    ## 4       NA  1.061343       1 1.061343           1       67 3.164355
-    ## 5     2.55  2.550000       0 1.071176           1       68 3.141698
-    ## 6       NA  1.205441       1 1.205441           1       68 2.884610
-    ##   VAR_fmeth VAR_fwin
-    ## 1         1       14
-    ## 2         1       14
-    ## 3         1       14
-    ## 4         1       14
-    ## 5         1       14
-    ## 6         1       14
+    ##   VAR_orig     VAR_f VAR_fqc VAR_fall VAR_fall_qc VAR_fnum  VAR_fsd VAR_fmeth
+    ## 1    -1.21 -1.210000       0 1.373704           1       54 2.531604         1
+    ## 2     1.72  1.720000       0 1.396364           1       55 2.513678         1
+    ## 3       NA  1.006569       1 1.006569           1       58 3.311918         1
+    ## 4       NA  1.061343       1 1.061343           1       67 3.164355         1
+    ## 5     2.55  2.550000       0 1.071176           1       68 3.141698         1
+    ## 6       NA  1.205441       1 1.205441           1       68 2.884610         1
+    ##   VAR_fwin
+    ## 1       14
+    ## 2       14
+    ## 3       14
+    ## 4       14
+    ## 5       14
+    ## 6       14

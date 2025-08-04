@@ -52,7 +52,7 @@ for the gap-filled records.
         NEE_orig_sd = ifelse(
           is.finite(.data$NEE_uStar_orig), .data$NEE_uStar_fsd, NA),
         NEE_uStar_fgood = ifelse(
-          is.finite(.data$NEE_uStar_fqc <= 1), .data$NEE_uStar_f, NA)
+          is.finite(.data$NEE_uStar_fqc) & (.data$NEE_uStar_fqc <= 1), .data$NEE_uStar_f, NA)
     )
 
 If the aggregated mean should be computed excluding poor
@@ -75,9 +75,9 @@ average relative uncertainty of the individual observations.
 With neglecting correlations among records, the uncertainty of the mean
 annual flux is computed by adding the variances. The mean is computed by
 *m* = ∑*x*<sub>*i*</sub>/*n*. And hence its standard deviation by
-$sd(m) = \\sqrt{Var(m)}= \\sqrt{\\sum{Var(x\_i)}/n^2} = \\sqrt{n \\bar{\\sigma^2}/n^2} = \\bar{\\sigma^2}/\\sqrt{n}$.
+$sd(m) = \sqrt{Var(m)}= \sqrt{\sum{Var(x\_i)}/n^2} = \sqrt{n \bar{\sigma^2}/n^2} = \bar{\sigma^2}/\sqrt{n}$.
 This results in an approximate reduction of the average standard
-deviation $\\bar{\\sigma^2}$ by $\\sqrt{n}$.
+deviation $\bar{\sigma^2}$ by $\sqrt{n}$.
 
     results %>% summarise(
       nRec = sum(is.finite(NEE_orig_sd))
@@ -97,19 +97,19 @@ low.
 
 When observations are not independent of each other, the formulas now
 become *V**a**r*(*m*) = *s*<sup>2</sup>/*n*<sub>*e**f**f*</sub> where
-$s^2 = \\frac{n\_{eff}}{n(n\_{eff}-1)} \\sum\_{i=1}^n \\sigma\_i^2$, and
+$s^2 = \frac{n\_{eff}}{n(n\_{eff}-1)} \sum\_{i=1}^n \sigma\_i^2$, and
 with the number of effective observations *n*<sub>*e**f**f*</sub>
 decreasing with the autocorrelation among records (Bayley 1946, Zieba
 2011).
 
-The average standard deviation $\\sqrt{\\bar{\\sigma^2\_i}}$ now
-approximately decreases only by about $\\sqrt{n\_{eff}}$:
+The average standard deviation $\sqrt{\bar{\sigma^2\_i}}$ now
+approximately decreases only by about $\sqrt{n\_{eff}}$:
 
 $$
-Var(m) = \\frac{s^2}{n\_{eff}} 
-= \\frac{\\frac{n\_{eff}}{n(n\_{eff}-1)} \\sum\_{i=1}^n \\sigma\_i^2}{n\_{eff}}
-= \\frac{1}{n(n\_{eff}-1)} \\sum\_{i=1}^n \\sigma\_i^2 \\\\
-= \\frac{1}{n(n\_{eff}-1)} n \\bar{\\sigma^2\_i} = \\frac{\\bar{\\sigma^2\_i}}{(n\_{eff}-1)} 
+Var(m) = \frac{s^2}{n\_{eff}} 
+= \frac{\frac{n\_{eff}}{n(n\_{eff}-1)} \sum\_{i=1}^n \sigma\_i^2}{n\_{eff}}
+= \frac{1}{n(n\_{eff}-1)} \sum\_{i=1}^n \sigma\_i^2 \\
+= \frac{1}{n(n\_{eff}-1)} n \bar{\sigma^2\_i} = \frac{\bar{\sigma^2\_i}}{(n\_{eff}-1)} 
 $$
 
 First we need to quantify the error terms, i.e. model-data residuals.
@@ -118,8 +118,8 @@ For all the records of good quality, we have an original measured value
 `NEE_uStar_fall`.
 
 For computing autocorrelation, equidistant time steps are important.
-Hence, instead of filtering, the residuals of bad-quality data are set
-to missing.
+Hence, instead of filtering, the residuals of non-observation,
+i.e. gap-filled, data are set to missing.
 
     results <- EProc$sExportResults() %>% 
       mutate(
@@ -212,7 +212,7 @@ column with that name.
       )
     aggDay
 
-    ## # A tibble: 365 x 7
+    ## # A tibble: 365 × 7
     ##      DoY DateTime             nEff  nRec      NEE  sdNEE sdNEEuncorr
     ##    <int> <dttm>              <dbl> <int>    <dbl>  <dbl>       <dbl>
     ##  1     0 1998-01-01 00:30:00 11.0     21  0.124    0.760       0.536
@@ -225,7 +225,7 @@ column with that name.
     ##  8     7 1998-01-08 00:30:00 17.7     46 -0.139    0.525       0.320
     ##  9     8 1998-01-09 00:30:00 17.5     45  0.614    0.474       0.290
     ## 10     9 1998-01-10 00:30:00 15.4     36  0.242    0.641       0.411
-    ## # … with 355 more rows
+    ## # ℹ 355 more rows
 
 ![](aggUncertainty_files/figure-markdown_strict/uncBand-1.png)
 
@@ -235,10 +235,10 @@ neglecting correlations.
 
 ## u\* threshold uncertainty
 
-There is also uncertainty due to unknown u\* threshold. Since, the same
-threshold is used for all times in a given uStar scenario, the relative
-uncertainty of this component does not decrease when aggregating across
-time.
+There is also flux uncertainty due to uncertainty in u\* threshold
+estimation. Since the same threshold is used for all times in a given
+uStar scenario, the relative uncertainty of this component does not
+decrease when aggregating across time.
 
 The strategy is to
 
@@ -258,8 +258,8 @@ this uncertainty is computationally expensive.
 1\. First, we estimate many samples of the probability density of the
 unknown uStar threshold.
 
-    # for run-time of the vignette creation, here we use only few uStar quantiles
-    # For real-world applications, a larger sample is required.
+    # for run-time of the vignette creation, here we use only few (3) uStar quantiles 
+    # For real-world applications, a larger sample (> 30) is required.
     nScen <- 3 # nScen <- 39
 
     EddyDataWithPosix <- Example_DETha98 %>% 
@@ -294,14 +294,14 @@ column in the data exported from REddyProc.
     NEEagg
 
     ##     uStar      U2.5       U50     U97.5 
-    ## -1.616926 -1.630803 -1.618933 -1.646267
+    ## -1.616926 -1.627199 -1.625671 -1.648635
 
 4\. compute uncertainty across aggregated values
 
     sdNEEagg_ustar <- sd(NEEagg)
     sdNEEagg_ustar
 
-    ## [1] 0.01349296
+    ## [1] 0.01346817
 
 ## Combined aggregated uncertainty
 
@@ -316,4 +316,4 @@ from the random uncertainty, the variances add.
     sdAnnual
 
     ##       sdRand    sdUstar     sdComb
-    ## 1 0.04798329 0.01349296 0.04984432
+    ## 1 0.04798329 0.01346817 0.04983762

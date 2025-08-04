@@ -55,9 +55,9 @@ fLoadEuroFlux16 <- function(
 #' @param file_path scalar string: the path to the csv file
 #' @param additional_columns character vector of columns to
 #'   read in addition of standard columns of \code{\link{read_from_fluxnet15}}.
-#'   Can be a character vector or a object return by \code{\link{cols}}
+#'   Can be a character vector or a object return by \code{\link[readr]{cols}}
 #' @param colname_NEE name (scalar string) of column that reports NEE observations
-#' @param ... further arguments to \code{\link{read_csv}}
+#' @param ... further arguments to \code{\link[readr]{read_csv}}
 #'
 #' @examples
 #'   ds_fn15 <- Example_DETha98 %>%
@@ -266,7 +266,7 @@ extract_FN15 <- function(EProc = .self, is_export_nonfilled = TRUE, keep_other_c
 #' it to \code{\link{read_from_ameriflux22}}.
 #'
 #' @param file_path scalar string: the path to the csv file
-#' @param ... further arguments to \code{\link{read_csv}}
+#' @param ... further arguments to \code{\link[readr]{read_csv}}
 #'
 #' @seealso \code{\link{read_from_ameriflux22}} \code{\link{help_export}}
 #'

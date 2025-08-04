@@ -41,7 +41,7 @@ There are several functions that import from file of different formats.
 \item Read basic variables from Ameriflux standard (as of 2022) files:
 \code{\link{fLoadAmeriflux22}}
 \item Read NetCDF files -> moved to separate package REddyProcNCDF
-(https://github.com/bgctw/REddyProcNCDF)
+(https://github.com/EarthyScience/REddyProcNCDF)
 }
 
 Back to \link{REddyProc-package}.}

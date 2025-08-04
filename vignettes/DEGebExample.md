@@ -1,5 +1,4 @@
-Crop example demonstrating multiple years and user defined uStar-Seasons
-========================================================================
+# Crop example demonstrating multiple years and user defined uStar-Seasons
 
     #isDevelopMode <- TRUE
     if (!exists("isDevelopMode")) library(REddyProc)
@@ -8,7 +7,7 @@ Crop example demonstrating multiple years and user defined uStar-Seasons
 First, the data is loaded. This example uses data that has been
 downloaded from <http://www.europe-fluxdata.eu> and preprocessed by
 `fLoadEuroFlux16`, where the DateTime Column has been created, and the
-variables renamed to the BGC-convention (e.g. Tair instead of Ta).
+variables renamed to the BGC-convention (e.g. Tair instead of Ta).
 
     data(DEGebExample)
     summary(DEGebExample)
@@ -37,8 +36,7 @@ and rH.
     EProc <- sEddyProc$new('DE-Geb', DEGebExample, c('NEE','Rg','Tair','VPD', 'Ustar'))
     EProc$sSetLocationInfo(LatDeg = 51.1, LongDeg = 10.9, TimeZoneHour = 1)  #Location of Gebesee
 
-Defining Seasons with different surface friction conditions
------------------------------------------------------------
+## Defining Seasons with different surface friction conditions
 
 The site is a crop site. The harvesting times are visible as sharp edges
 in the plots of NEE.
@@ -126,8 +124,7 @@ threshold for each of the defined seasons, by calling
 
     EProc$sMDSGapFillAfterUstar('NEE', FillAll = FALSE, isVerbose = FALSE)
 
-Uncertainty introduced by the uStar Threshold estimate: bootstrap
------------------------------------------------------------------
+## Uncertainty introduced by the uStar Threshold estimate: bootstrap
 
 With a lower estimate of uStar threshold, more records with lower NEE
 are kept in the dataset instead of marked as gaps. Therefore annual
@@ -152,46 +149,18 @@ uStar Threshold.
     #))
     #EProc$sSetUstarScenarios(uStarScens)
     EProc$useSeaonsalUStarThresholds()
-
-    ## 
-    ## Enter a frame number, or 0 to exit   
-    ## 
-    ##  1: twDev::genVigs("DEGebExample")
-    ##  2: packageTools.R#300: rmarkdown::render(fNameI, output_format = output_f
-    ##  3: render(input = input, output_format = format, output_file = NULL, outp
-    ##  4: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, enc
-    ##  5: process_file(text, output)
-    ##  6: withCallingHandlers(if (tangle) process_tangle(group) else process_gro
-    ##  7: process_group(group)
-    ##  8: process_group.block(group)
-    ##  9: call_block(x)
-    ## 10: block_exec(params)
-    ## 11: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, ke
-    ## 12: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALS
-    ## 13: evaluate::evaluate(...)
-    ## 14: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, d
-    ## 15: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, envi
-    ## 16: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, enclos)
-    ## 17: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = 
-    ## 18: withVisible(eval(expr, envir, enclos))
-    ## 19: eval(expr, envir, enclos)
-    ## 20: eval(expr, envir, enclos)
-    ## 21: EProc$useSeaonsalUStarThresholds()
-    ## 
-    ## Enter an item from the menu, or 0 to exit
-
     EProc$sGetUstarScenarios()
 
     ##     season      uStar        U10        U90
-    ## 5  2004001 0.13500000 0.10174000 0.16030000
-    ## 6  2004070 0.12037500 0.09632500 0.12268889
-    ## 7  2004210 0.08925000 0.10499293 0.19000727
-    ## 8  2004320 0.16041176 0.09918212 0.17438050
-    ## 9  2005070 0.12533333 0.11512857 0.17554643
-    ## 10 2005180 0.13473214 0.08448929 0.14519000
-    ## 11 2005320 0.04842361 0.05055000 0.08105208
-    ## 12 2006120 0.06966667 0.06480909 0.08695350
-    ## 13 2006305 0.25094444 0.10060806 0.26186553
+    ## 5  2004001 0.13500000 0.11874009 0.15412045
+    ## 6  2004070 0.12037500 0.08538636 0.12177250
+    ## 7  2004210 0.08925000 0.09386250 0.16746306
+    ## 8  2004320 0.16041176 0.09177434 0.17215564
+    ## 9  2005070 0.12533333 0.10400556 0.16937143
+    ## 10 2005180 0.13473214 0.08419405 0.13203875
+    ## 11 2005320 0.04842361 0.04905486 0.10056250
+    ## 12 2006120 0.06966667 0.06113059 0.09647238
+    ## 13 2006305 0.25094444 0.12240556 0.25735196
 
 After setting the uStar scenarios, they will be used by method
 `sMDSGapFillUStarScens`.
@@ -202,7 +171,7 @@ Additional output columns are produced for each uStar quantile.
 
     grep("^NEE.*_f$", colnames( EProc$sExportResults()), value = TRUE )
 
-    ## character(0)
+    ## [1] "NEE_uStar_f" "NEE_U10_f"   "NEE_U90_f"
 
 Several methods provide processing steps for all scenarios. In addition,
 method `sApplyUStarScen` calls a user-specified function repeatedly with
@@ -215,10 +184,9 @@ several GPP estimates.
     #grep("U10", colnames(EProc$sExportResults()), value = TRUE)    
     grep("^GPP.*_f$", colnames( EProc$sExportResults()), value = TRUE )
 
-    ## [1] "GPP_uStar_f" "GPP_U10_f"   "GPP_U90_f"
+    ## [1] "GPP_U10_f"   "GPP_U90_f"   "GPP_uStar_f"
 
-Using change point detection instead of moving point method for UStar Threshold estimation
-------------------------------------------------------------------------------------------
+## Using change point detection instead of moving point method for UStar Threshold estimation
 
 The package also provides another method of estimating the point where
 NEE saturates with increasing uStar. With the ChangePointDetection (CPT)
@@ -239,41 +207,15 @@ as Gap.
                 )
     #(uStarThCP <- usGetSeasonalSeasonUStarMap(resUStar))
     EProc$useSeaonsalUStarThresholds()
-
-    ## 
-    ## Enter a frame number, or 0 to exit   
-    ## 
-    ##  1: twDev::genVigs("DEGebExample")
-    ##  2: packageTools.R#300: rmarkdown::render(fNameI, output_format = output_f
-    ##  3: render(input = input, output_format = format, output_file = NULL, outp
-    ##  4: knitr::knit(knit_input, knit_output, envir = envir, quiet = quiet, enc
-    ##  5: process_file(text, output)
-    ##  6: withCallingHandlers(if (tangle) process_tangle(group) else process_gro
-    ##  7: process_group(group)
-    ##  8: process_group.block(group)
-    ##  9: call_block(x)
-    ## 10: block_exec(params)
-    ## 11: in_dir(input_dir(), evaluate(code, envir = env, new_device = FALSE, ke
-    ## 12: evaluate(code, envir = env, new_device = FALSE, keep_warning = !isFALS
-    ## 13: evaluate::evaluate(...)
-    ## 14: evaluate_call(expr, parsed$src[[i]], envir = envir, enclos = enclos, d
-    ## 15: timing_fn(handle(ev <- withCallingHandlers(withVisible(eval(expr, envi
-    ## 16: handle(ev <- withCallingHandlers(withVisible(eval(expr, envir, enclos)
-    ## 17: withCallingHandlers(withVisible(eval(expr, envir, enclos)), warning = 
-    ## 18: withVisible(eval(expr, envir, enclos))
-    ## 19: eval(expr, envir, enclos)
-    ## 20: eval(expr, envir, enclos)
-    ## 21: EProc$useSeaonsalUStarThresholds()
-
     EProc$sGetUstarScenarios()
 
     ##     season     uStar
-    ## 5  2004001 0.5454669
-    ## 6  2004070 0.1203274
-    ## 7  2004210 0.2144359
-    ## 8  2004320 0.1558058
-    ## 9  2005070 0.1558058
-    ## 10 2005180 0.1558058
-    ## 11 2005320 0.3506363
-    ## 12 2006120 0.3506363
-    ## 13 2006305 0.3506363
+    ## 5  2004001 0.4940012
+    ## 6  2004070 0.3167250
+    ## 7  2004210 0.2220000
+    ## 8  2004320 0.4977500
+    ## 9  2005070 0.3361000
+    ## 10 2005180 0.3029803
+    ## 11 2005320 0.3908000
+    ## 12 2006120 0.2138062
+    ## 13 2006305 0.3544000

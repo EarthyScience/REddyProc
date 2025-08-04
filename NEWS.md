@@ -1,3 +1,12 @@
+# REddyProc 1.3.4
+- Handles edge-case in daytime-partitioning where all temperature 
+  sensitivities are estimated the same numerical value
+- Updated documentation 
+  - references to new github home: EarthySciences
+  - identify package in foreign package links
+  - document plotting diurnal cycle (sPlotDiurnalCycleM)
+- Fixed unit of y-label in uStarThreshold plots
+
 # REddyProc 1.3.3
 - Fixed bug in plotting daily sums, where default scale (gC / day) was of by
   a factor nRecInDays.

@@ -1,6 +1,6 @@
 Package: REddyProc
 Type: Package
-Version: 1.3.3
+Version: 1.3.4
 Title: Post Processing of (Half-)Hourly Eddy-Covariance Measurements
 Authors@R: c( person( "Department for Biogeochemical Integration at MPI-BGC, Jena, Germany", role=c("cph"), email="REddyProc-help@bgc-jena.mpg.de" )
               ,person( "Thomas", "Wutzler", role=c("aut","cre"), email="twutz@bgc-jena.mpg.de" )
@@ -31,7 +31,7 @@ Description: Standard and extensible Eddy-Covariance data post-processing
   based and day-time based approaches
   (Lasslop et al. (2010) <doi:10.1111/j.1365-2486.2009.02041.x>).
 URL: https://www.bgc-jena.mpg.de/bgi/index.php/Services/REddyProcWeb, 
-  https://github.com/bgctw/REddyProc
+  https://github.com/EarthyScience/REddyProc
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
@@ -67,4 +67,4 @@ Collate:
     'logitnorm.R'
     'variableNames.R'
     'zzzDebugCode.R'
-RoxygenNote: 7.3.0
+RoxygenNote: 7.3.1
