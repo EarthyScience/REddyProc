@@ -103,7 +103,7 @@ abline( v = seasonStartsDate$DateTime)
 The user-specific seasoning is provided to the gap-filling by the argument `seasonFactor`. 
 ```{r DEGeb_estUStar1b, cache = TRUE}
 (uStarTh <- EProc$sEstUstarThold(seasonFactor = seasonFactor))
-#EProc$useSeaonsalUStarThresholds()
+#EProc$useSeasonalUStarThresholds()
 # estimation can be inspected by plotting the saturation of NEE with UStar 
 # for the temperatures of one season
 #EProc$sPlotNEEVersusUStarForSeason( levels(uStarTh$season)[2] )
@@ -116,11 +116,11 @@ the mean across the years.
 By default the gap-filling uses annually aggregated estimates of uStar-Threshold.
 This usually works for sites with continuous vegetation cover.
 For the crop-site of this example, we will use a different threshold for each of 
-the defined seasons, by calling `sEddyProc_useSeaonsalUStarThresholds` 
+the defined seasons, by calling `sEddyProc_useSeasonalUStarThresholds` 
 before gapfilling.
 
 ```{r DEGeb_estUStar1c}
-EProc$useSeaonsalUStarThresholds()
+EProc$useSeasonalUStarThresholds()
 EProc$sGetUstarScenarios()
 ```	
 
@@ -154,7 +154,7 @@ EProc$sEstimateUstarScenarios(
 #  EProc$sGetEstimatedUstarThresholdDistribution()
 #))
 #EProc$sSetUstarScenarios(uStarScens)
-EProc$useSeaonsalUStarThresholds()
+EProc$useSeasonalUStarThresholds()
 EProc$sGetUstarScenarios()
 ```	
 
@@ -205,7 +205,7 @@ resUStar <- EProc$sEstUstarThold(
 					, seasonFactor = seasonFactor
 			)
 #(uStarThCP <- usGetSeasonalSeasonUStarMap(resUStar))
-EProc$useSeaonsalUStarThresholds()
+EProc$useSeasonalUStarThresholds()
 EProc$sGetUstarScenarios()
 ```
 

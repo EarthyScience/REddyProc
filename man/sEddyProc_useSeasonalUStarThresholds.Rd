@@ -1,8 +1,8 @@
-\name{sEddyProc_useSeaonsalUStarThresholds}
-\alias{sEddyProc_useSeaonsalUStarThresholds}
-\title{sEddyProc useSeaonsalUStarThresholds}
+\name{sEddyProc_useSeasonalUStarThresholds}
+\alias{sEddyProc_useSeasonalUStarThresholds}
+\title{sEddyProc useSeasonalUStarThresholds}
 \description{use seasonal estimates of uStar thresholds}
-\usage{sEddyProc_useSeaonsalUStarThresholds()}
+\usage{sEddyProc_useSeasonalUStarThresholds()}
 
 
 
