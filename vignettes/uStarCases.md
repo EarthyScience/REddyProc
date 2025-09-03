@@ -149,11 +149,11 @@ estimates for different aggregation levels, use method
 In conjunction with method `usGetSeasonalSeasonUStarMap` and
 `sEddyProc_sSetUstarScenarios` this can be used to set seasonally
 different u\* threshold. However, this common case supported by method
-`sEddyProc_useSeaonsalUStarThresholds`.
+`sEddyProc_useSeasonalUStarThresholds`.
 
     #EProc$sSetUstarScenarios(
     #  usGetSeasonalSeasonUStarMap(uStarThAgg)[,-2])
-    EProc$useSeaonsalUStarThresholds()
+    EProc$useSeasonalUStarThresholds()
     # inspect the changed thresholds to be used
     EProc$sGetUstarScenarios()
 

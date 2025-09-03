@@ -286,7 +286,7 @@ sEddyProc_sSetUstarScenarios <- function(
 sEddyProc$methods(sSetUstarScenarios = sEddyProc_sSetUstarScenarios)
 
 #' @export
-sEddyProc_useSeaonsalUStarThresholds <- function(
+sEddyProc_useSeasonalUStarThresholds <- function(
   ### use seasonal estimates of uStar thresholds
 ) {
   ##seealso<< \code{\link{sEddyProc_sSetUstarScenarios}},
@@ -295,14 +295,16 @@ sEddyProc_useSeaonsalUStarThresholds <- function(
   uStarMap <- usGetSeasonalSeasonUStarMap(uStarThAgg)
   .self$sSetUstarScenarios(uStarMap)
 }
-sEddyProc$methods(useSeaonsalUStarThresholds = sEddyProc_useSeaonsalUStarThresholds)
+sEddyProc$methods(useSeasonalUStarThresholds = sEddyProc_useSeasonalUStarThresholds)
+# backward compatibiity to former typo
+sEddyProc$methods(useSeaonsalUStarThresholds = sEddyProc_useSeasonalUStarThresholds)
 
 #' @export
 sEddyProc_useAnnualUStarThresholds <- function(
   ### use seasonal estimates of uStar thresholds
 ) {
   ##seealso<< \code{\link{sEddyProc_sSetUstarScenarios}},
-  ## \code{\link{sEddyProc_useSeaonsalUStarThresholds}}
+  ## \code{\link{sEddyProc_useSeasonalUStarThresholds}}
   uStarThAgg <- .self$sGetEstimatedUstarThresholdDistribution()
   uStarMap <- usGetAnnualSeasonUStarMap(uStarThAgg)
   .self$sSetUstarScenarios(uStarMap)
